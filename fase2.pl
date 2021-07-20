@@ -133,14 +133,14 @@ prepareForFlood(A,B) :-
         prepareForFlood(A,B,0).
 prepareForFlood([],[],_).
 prepareForFlood([H|T], [A|B], Y) :- 
-        prepareRow(H,A,0,Y),
+        prepareFila(H,A,0,Y),
         Y2 is Y+1,
         prepareForFlood(T,B,Y2).
 
-prepareRow([],[],_,_).
-prepareRow([V|T1], [[V,X,Y]|T2],X,Y) :-
+prepareFila([],[],_,_).
+prepareFila([V|T1], [[V,X,Y]|T2],X,Y) :-
         X2 is X+1,
-        prepareRow(T1,T2,X2,Y).
+        prepareFila(T1,T2,X2,Y).
 
 /*
     Aplana la matriz en la lista
@@ -165,15 +165,22 @@ fill(_,_,[0|_],[_|_],_) :- !.
 fill(H1,H2,[E1|T1],[E2|T2],Size) :-
         E2=E1,                                              % Coloca el valor original en la celda
         append(H1,[E1|T1],A1), append(H2,[E2|T2],A2),       % Combina la cabeza y la cola de la lista
-        lista2matriz(A1,Size,R1), lista2mamtriz(A2,Size,R2),% Transforma la lista en matriz otra vez
-        doChainReactions(R1,R2).                            % ChainReactions, solucion StackOverflow
+        lista2matriz(A1,Size,R1), lista2matriz(A2,Size,R2),% Transforma la lista en matriz otra vez
+        doChainReactions(R1,R2).                            % Reaccion en cadena
 fill(H1,H2,[E1|T1],[E2|T2],Size) :-
         E2=0,                                               % Coloca el valor original en la celda
         append(H1,[E1|T1],A1), append(H2,[E2|T2],A2),       % Combina la cabeza y la cola de la lista
         lista2matriz(A1,Size,R1), lista2mamtriz(A2,Size,R2),% Transforma la lista en matriz otra vez
-        doChainReactions(R1,R2).                            % ChainReactions, solucion StackOverflow
+        doChainReactions(R1,R2).                            % Reaccion en cadena
         
 % Tamaño de la lista
 length_(Length, List) :- length(List, Length),
 
 % Convierte una lista dada en su forma original de matriz, en base al tamaño de las filas
+lista2matriz(List, RowSize, Matriz) :-
+        length(List,L),
+        CuantasFilas is L div RowSize,
+        length(Matriz ,CuantasFilas),
+        maplist(length_(RowSize), Matriz),
+        append(Matriz, List).        
+
