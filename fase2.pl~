@@ -30,7 +30,7 @@ checkLinea2(_,[]).
 checkLinea2(L, [H|T]) :-
         isUnknown(H),!,
         checkLinea2(L,T).
-checkLinea2(L,[H|T]) :-
+checkLinea2(L, [H|T]) :-
         H = 0,
         checkLinea2(L,T).
 checkLinea2(L, [H|T]) :-
@@ -71,10 +71,10 @@ regla2Check([H|T]) :-
 
 checkLinea([_]) :- true.
 checkLinea([I1,I2|T]) :-
-        not(blackPair(I1,I2)),
+        not(ParEsNegro(I1,I2)),
         checkLinea([I2|T]).
 
-blackPair(I1,I2) :-
+ParEsNegro(I1,I2) :-
         I1 == 0,
         I2 == 0.
 
