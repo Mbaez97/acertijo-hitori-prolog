@@ -1,18 +1,18 @@
-outputFile('./hitori_solved.txt').
-inputFile('./hitori_unsolved.txt').
+outputFile('./matriz_hitori.txt').
+inputFile('./matriz_input.txt').
 
-:- include('Solver').
+:- include('solver').
 
-/********************* writing the result */
+/* Escribe el resultado */
 writeFullOutput(S, X, Y):- write(X), write('x'), write(Y), nl, writeOutput(S).
 
 writeOutput([]).
-writeOutput([E|R]):- writeLine(E), writeOutput(R).
+writeOutput([E|R]):- writeLinea(E), writeOutput(R).
 
-writeLine([]):- nl.
-writeLine([E|R]):- write(' '), write(E), writeLine(R).
+writeLinea([]):- nl.
+writeLinea([E|R]):- write(' '), write(E), writeLinea(R).
 
-/********************** reading the input */
+/* Leemos el input */
 readProblem(N,M,Problem):- readInt(N), readInt(M), M=N, length(Problem, M), readProblemLines(N,Problem).
 
 readProblemLines(_,[]).
@@ -32,12 +32,10 @@ continueInt(N,N).
 
 is_number_code(N, N1):- N>=48, N<58, N1 is N-48.
 
-/*********************** global control: starting the algorithm and the reading */
+% Empieza el algoritmo y lee
 run:- inputFile(IF), see(IF), outputFile(F), tell(F), readInt(N), write(N), nl, solveProblems(N), told, seen, !.
 run:- told, seen. /* close the files */
 
 solveProblems(0).
 solveProblems(N):- N>0, readProblem(X, Y, I), solveMatrix(X, Y, I, S), writeFullOutput(S, X, Y), !, N1 is N-1, solveProblems(N1).
 solveProblems(_):- write('no solutions'). 
-%:- nl,nl,write(' try running "?- run."'), nl,nl,nl.
-%:- run.
