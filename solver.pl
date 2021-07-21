@@ -1,9 +1,11 @@
 :- use_module(library(clpfd)).
 
 % Incluimos las fases, como solemos hacerlo en lenguaje c
+:- include('pistas').
 :- include('fase2').
 :- include('fase1').
 :- include('juego').
+
 
 % Creamos una matriz en blanco con la misma dimension de la matriz dada
 createMatrizEnBlanco([],[]).
