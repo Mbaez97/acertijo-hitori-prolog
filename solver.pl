@@ -39,7 +39,7 @@ mapFila([_|T1],['U'|T2]) :- mapFila(T1,T2).
  * Resuelve una matriz dada 
  * fase1 -> algoritmo de reaccion en cadena
  * fase2 -> Fuerzabruta con reaccion en cadena
- */ 
+ */
 solveMatriz(Size, _, BaseMatrix, ResultMatrix) :-
     createMatrizEnBlanco(BaseMatrix,SolutionMatrix),     
     fase1(BaseMatrix, SolutionMatrix, Size),             

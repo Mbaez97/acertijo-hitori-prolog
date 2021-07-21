@@ -25,7 +25,7 @@ doChainReactions(M,S,CAntes,CDespues) :- CDespues>=CAntes.
 
 /*
  * EL algoritmo de reaccion en cadena pinta las distintas celdas en base a las reglas ya escritas para el hitori
- * Matrix is rotated for each time the black pattern is checked
+ * 
  */
 chainReactions(M,S) :-
     rotarMatriz(M, M1), rotarMatriz(S,S1), 
@@ -39,7 +39,7 @@ chainReactions(M,S) :-
     patronDeCicloEstandarBlanco(M4,S4),!,
     patronUnico(M4,S4).
     
-% Sets all duplicates in a white cells row and column as black
+% Establece todos los duplicados en una fila y columna de celdas blancas en negro
 patronDeCicloEstandarBlanco(BM,SM) :- patronDeCicloEstandarBlanco(BM,SM,BM,SM,0).
 patronDeCicloEstandarBlanco(_,_,[],[],_).
 patronDeCicloEstandarBlanco(BM,SM,[E1|T],[A1|B],Y) :- checkCicloEstandarBlanco(BM,SM,E1,A1,0,Y), Y2 is Y+1, patronDeCicloEstandarBlanco(BM,SM,T,B,Y2).
@@ -60,7 +60,7 @@ buscaCicloEstandarBlanco([H|T],[A|B],[V,I],I2) :- H=V, I2\=I, A=0,!, I3 is I2+1,
 buscaCicloEstandarBlanco([H|T],[A|B],[V,I],I2) :- H=V, I2=I,!,I3 is I2+1, buscaCicloEstandarBlanco(T,B,[V,I],I3).
 buscaCicloEstandarBlanco([H|T],[_|B],[V,I],I2) :- H\=V,!, I3 is I2+1, buscaCicloEstandarBlanco(T,B,[V,I],I3).
 
-% Sets the left neighbour to a cell as white if the cell itself is painted black
+% Establece el vecino izquierdo en una celda como blanco si la celda en sí está pintada de negro
 patronDeCicloEstandarNegro([],[]).
 patronDeCicloEstandarNegro([E1|T],[A1|B]) :- checkCicloEstandarNegro(E1,A1), patronDeCicloEstandarNegro(T,B).
 
