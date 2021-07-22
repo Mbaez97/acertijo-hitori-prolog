@@ -147,10 +147,10 @@ prepareFila([V|T1], [[V,X,Y]|T2],X,Y) :-
     Pintamos las celdas en la matriz solucion con su color original o negro
     Si pasa por un item resuelto pasa
 */
-fillMatriz(BM, SM, Size) :-
+fillMatriz(BM, SM, 5) :-
         flatten(BM, FBM),
         flatten(SM, FSM),
-        fillAlgoritmo(FBM,FSM,Size).
+        fillAlgoritmo(FBM,FSM,5).
 
 fillAlgoritmo(A,B,Size) :- fillAlgoritmo(A,B,[],[],Size).
 fillAlgoritmo([],[],_,_,_).

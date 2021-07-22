@@ -8,10 +8,6 @@
 */
 
 fase1(BM,SM,_) :- 
-        patronSandwich(BM, SM),
-        patronQuadCorner(BM,SM),
-        patronTripleCorner(BM,SM),
-        patronDobleCorner(BM, SM),
         doChainReactions(BM,SM),
         patronUnico(BM, SM).
 
@@ -35,66 +31,6 @@ uniqueness(BM,SM, [H|T], [A|B], X, Y) :-
 uniqueness(BM,SM, [_|T], [_|B], X, Y) :- 
         X2 is X+1, uniqueness(BM,SM,T,B,X2,Y).
 
-% Patron Sandwich.
-patronSandwich(M, EM) :- 
-        extractLinea1(M, EM), trampose(M,T), trampose(EM,TEM), extractLinea1(T,TEM).
-
-extractLinea1([],[]).
-extractLinea1([H|T],[A|B]) :-
-        checkLinea1(H,A), extractLinea1(T,B).
-
-checkLinea1([_,_],[_,_]).
-checkLinea1([E1,E2,E1|T], [_,E2,A3|B]) :- 
-        checkLinea1([E2,E1|T],[E2,A3|B]).
-checkLinea1([E1,E1,E1|T], [0,E1,0|B]) :- 
-        checkLinea1([_,_|T],[_,_|B]).
-checkLinea1([E1,E2,E3|T], [_,A2,A3|B]) :- 
-        (E1\=E3; E1\=E2; E1\=E3), checkLinea1([E2,E3|T], [A2|B]).
-
-% Patron doble corner
-patronDobleCorner(M,S) :-
-        rotarMatriz(M,M1), rotarMatriz(S,S1), patronDC(M1,S1),
-        rotarMatriz(M1,M2), rotarMatriz(S1,S2), patronDC(M2,S2),
-        rotarMatriz(M2,M3), rotarMatriz(S2,S3), patronDC(M3,S3),
-        rotarMatriz(M3,M4), rotarMatriz(S3,S4), patronDC(M4,S4).
-
-patronDC([E1,E2|_], [A1,A2|_]) :-
-        checkDC(E1,E2,A1,A2).
-
-checkDC([E1,E1|_], [E3,_|_], [_,_|_], [E3,_|_]).
-checkDC([E1,E2|_], [E1,_|_], [_,E2|_], [_,_|_]).
-checkDC([_,E2|_], [E3,E3|_], [_,E2|_], [_,_|_]).
-checkDC([_,E2|_], [E3,E2|_], [_,_|_], [E3,_|_]).
-checkDC([_,_|_], [_,_|_], [_,_|_], [_,_|_]).
-
-% Patron triple Corner
-patronTripleCorner(M,S) :-
-        rotarMatriz(M,M1), rotarMatriz(S,S1), patronTC(M1,S1),
-        rotarMatriz(M1,M2), rotarMatriz(S1,S2), patronTC(M2,S2),
-        rotarMatriz(M2,M3), rotarMatriz(S2,S3), patronTC(M3,S3),
-        rotarMatriz(M3,M4), rotarMatriz(S3,S4), patronTC(M4,S4).
-
-patronTC([E1,E2|T], [A1,A2|B]) :-
-        checkTC(E1,E2,A1,A2).
-
-checkTC([E1,E1|_], [E1,_|_], [0,E1|_], [E1,_|_]).
-checkTC([E1,E2|_], [E2,E2|_], [_,E2|_], [E2,0|_]).
-checkTC([E1,E2|_], [E3,E4|_], [A1,A2|_], [A3,A4|_]).
-
-% Patron quad corner
-patronQuadCorner(M,S):-
-        rotarMatriz(M,M1), rotarMatriz(S,S1), patronQC(M1,S1),
-        rotarMatriz(M1,M2), rotarMatriz(S1,S2), patronQC(M2,S2),
-        rotarMatriz(M2,M3), rotarMatriz(S2,S3), patronQC(M3,S3),
-        rotarMatriz(M3,M4), rotarMatriz(S3,S4), patronQC(M4,S4).
-
-patronQC([E1,E2|T], [A1,A2|B]) :-
-        checkQC(E1,E2,A1,A2).
-
-checkQC([E1,E1|_], [E1,E1|_], [0,E1|_], [E1,0|_]).
-checkQC([E1,E1|_], [E2,E2|_], [0,E1|_], [E2,0|_]).
-checkQC([E1,E2|_], [E1,E2|_], [0,E2|_], [E1,0|_]).
-checkQC([E1,E2|_], [E3,E4|_], [A1,A2|_], [A3,A4|_]).
 
 % Contadores
 count([],_,0).

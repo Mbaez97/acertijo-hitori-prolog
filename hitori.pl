@@ -1,7 +1,12 @@
 :- include('solver').
 
 % Runner
-run():- pistaHitori(X), solveProblems(5), told, seen,!.
+run():- 
+        pistaHitori(X),
+        write("Matriz Pista"),nl,
+        write(X),nl, 
+        solveProblems(5), told, seen,!,
+        write("Matriz Solucion"), nl.
 run():- told, seen.
 
 solveProblems(0).
