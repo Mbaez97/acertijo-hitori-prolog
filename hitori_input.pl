@@ -30,9 +30,13 @@ continueInt(N,N).
 is_number_code(N, N1):- N>=48, N<58, N1 is N-48.
 
 % Runner
-run :- pistaHitori(X), see(X), tell(F), readInt(N), write(N), nl, solveProblems(N), told, seen,!.
+run :- pistaHitori(X), see(X), tell(F), solveProblems(5), told, seen,!.
 run :- told, seen.
 
 solveProblems(0).
-solveProblems(N):- N>0, readProblem(X, Y, I), solveMatriz(X, Y, I, S), writeFullOutput(S, X, Y), !, N1 is N-1, solveProblems(N1).
+solveProblems(N):- 
+        N > 0, 
+        solveMatriz(X,Y,I,S), !,
+        N1 is N-1,
+        solveProblems(N1).
 solveProblems(_):- write('no solutions').
