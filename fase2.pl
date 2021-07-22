@@ -145,6 +145,7 @@ prepareFila([V|T1], [[V,X,Y]|T2],X,Y) :-
 /*
     Aplana la matriz en la lista
     Pintamos las celdas en la matriz solucion con su color original o negro
+
     Si pasa por un item resuelto pasa
 */
 fillMatriz(BM, SM, 5) :-
@@ -176,7 +177,7 @@ fill(H1,H2,[E1|T1],[E2|T2],5) :-
 % Tamaño de la lista
 length_(Length, List) :- length(List, Length).
 
-% Convierte una lista dada en su forma original de matriz, en base al tamaño de las filas
+% Convierte una lista dada en su forma de matriz, en base al tamaño de las filas
 lista2matriz(List, Row5, Matriz) :-
         length(List,L),
         CuantasFilas is L div Row5,

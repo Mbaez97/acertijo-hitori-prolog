@@ -1,6 +1,6 @@
 Para resolver el acertijo tenemos que:
 1-  Consultar nuestra base de conocimientos.
-    El archivo .pl que representa nuestra base de conocimientos es "hitori_input.pl", este archivo
+    El archivo .pl que representa nuestra base de conocimientos es "hitori.pl", este archivo
     incluye al archivo "solver.pl" donde este incluye a las distintas fases -> "fase1.pl", "fase2.pl" 
     ademas de los archivos "juego.pl" y "pistas.pl".
     OBS = "juego.pl" es un archivo donde se encuentra el algoritmo de reaccion en cadena 
@@ -8,10 +8,16 @@ Para resolver el acertijo tenemos que:
     ya escritas para el hitori en la "fase2.pl"
 
 2-  Una vez cargada la base de conocimientos en el SWI-Prolog. Llamamos de la siguiente forma:
-    pistaHitori(
-        [],
-        [],
-        [],
-        [],
-        []
-    )   :-  run 
+    run().
+
+Documentacion.
+    Todo inicia en el archivo "hitori.pl" dentro del mismo encontramos el predicado run donde este implica una serie
+de predicados que están distribuidos en los distintos archivos.
+    Primero que nada hace una consulta de pistaHitori(X), este nos tiene que cargar el dato inicial con la lista de listas.
+que representa el tablero o matriz.
+    Luego, entra en accion el predicado solveProblems, que en palabras simples se encarga de la recursion necesaria para poder 
+resolver cada solveMatriz.
+    solveMatriz es el predicado encargado de llamar (que implica a los otros predicados) para resolver el acertijo.
+    El algoritmo consiste en dos fases, la fase 1 donde nos encargamos de encontrar patrones dentro de nuestra matriz y
+la fase 2 donde nos encargamos de encontrar soluciones mediante fuerza bruta.
+Mayor detalle de los predicados, dentro del codigo.
