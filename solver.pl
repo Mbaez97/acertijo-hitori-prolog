@@ -40,7 +40,12 @@ mapFila([_|T1],['U'|T2]) :- mapFila(T1,T2).
  * fase1 -> algoritmo de reaccion en cadena
  * fase2 -> Fuerzabruta con reaccion en cadena
  */
+solverMatriz(BaseMatrix) :- 
+    pistaHitori(BaseMatrix),
+    createMatrizEnBlanco(BaseMatrix, ResultMatrix),
+    fase1(BaseMatrix,SolutionMatrix).
 solveMatriz(Size, _, BaseMatrix, ResultMatrix) :-
+    pistaHitori(BaseMatrix)
     createMatrizEnBlanco(BaseMatrix,SolutionMatrix),     
     fase1(BaseMatrix, SolutionMatrix, Size),             
     prep(BaseMatrix, SolutionMatrix, PreparedMatrix),!,   

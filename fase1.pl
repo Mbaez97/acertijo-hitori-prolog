@@ -53,10 +53,10 @@ checkLinea1([E1,E2,E3|T], [_,A2,A3|B]) :-
 
 % Patron doble corner
 patronDobleCorner(M,S) :-
-        rotateMatrix(M,M1), rotateMatrix(S,S1), patronDC(M1,S1),
-        rotateMatrix(M1,M2), rotateMatrix(S1,S2), patronDC(M2,S2),
-        rotateMatrix(M2,M3), rotateMatrix(S2,S3), patronDC(M3,S3),
-        rotateMatrix(M3,M4), rotateMatrix(S3,S4), patronDC(M4,S4).
+        rotarMatriz(M,M1), rotarMatriz(S,S1), patronDC(M1,S1),
+        rotarMatriz(M1,M2), rotarMatriz(S1,S2), patronDC(M2,S2),
+        rotarMatriz(M2,M3), rotarMatriz(S2,S3), patronDC(M3,S3),
+        rotarMatriz(M3,M4), rotarMatriz(S3,S4), patronDC(M4,S4).
 
 patronDC([E1,E2|_], [A1,A2|_]) :-
         checkDC(E1,E2,A1,A2).
@@ -69,10 +69,10 @@ checkDC([_,_|_], [_,_|_], [_,_|_], [_,_|_]).
 
 % Patron triple Corner
 patronTripleCorner(M,S) :-
-        rotateMatrix(M,M1), rotateMatrix(S,S1), patronTC(M1,S1),
-        rotateMatrix(M1,M2), rotateMatrix(S1,S2), patronTC(M2,S2),
-        rotateMatrix(M2,M3), rotateMatrix(S2,S3), patronTC(M3,S3),
-        rotateMatrix(M3,M4), rotateMatrix(S3,S4), patronTC(M4,S4).
+        rotarMatriz(M,M1), rotarMatriz(S,S1), patronTC(M1,S1),
+        rotarMatriz(M1,M2), rotarMatriz(S1,S2), patronTC(M2,S2),
+        rotarMatriz(M2,M3), rotarMatriz(S2,S3), patronTC(M3,S3),
+        rotarMatriz(M3,M4), rotarMatriz(S3,S4), patronTC(M4,S4).
 
 patronTC([E1,E2|T], [A1,A2|B]) :-
         checkTC(E1,E2,A1,A2).
@@ -83,10 +83,10 @@ checkTC([E1,E2|_], [E3,E4|_], [A1,A2|_], [A3,A4|_]).
 
 % Patron quad corner
 patronQuadCorner(M,S):-
-        rotateMatrix(M,M1), rotateMatrix(S,S1), patronQC(M1,S1),
-        rotateMatrix(M1,M2), rotateMatrix(S1,S2), patronQC(M2,S2),
-        rotateMatrix(M2,M3), rotateMatrix(S2,S3), patronQC(M3,S3),
-        rotateMatrix(M3,M4), rotateMatrix(S3,S4), patronQC(M4,S4).
+        rotarMatriz(M,M1), rotarMatriz(S,S1), patronQC(M1,S1),
+        rotarMatriz(M1,M2), rotarMatriz(S1,S2), patronQC(M2,S2),
+        rotarMatriz(M2,M3), rotarMatriz(S2,S3), patronQC(M3,S3),
+        rotarMatriz(M3,M4), rotarMatriz(S3,S4), patronQC(M4,S4).
 
 patronQC([E1,E2|T], [A1,A2|B]) :-
         checkQC(E1,E2,A1,A2).

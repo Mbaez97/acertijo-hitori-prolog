@@ -3,4 +3,15 @@ Para resolver el acertijo tenemos que:
     El archivo .pl que representa nuestra base de conocimientos es "hitori_input.pl", este archivo
     incluye al archivo "solver.pl" donde este incluye a las distintas fases -> "fase1.pl", "fase2.pl" 
     ademas de los archivos "juego.pl" y "pistas.pl".
-    OBS = "juego.pl" es un archivo donde 
+    OBS = "juego.pl" es un archivo donde se encuentra el algoritmo de reaccion en cadena 
+    donde el mismo pinta las distintas celdas en base a las reglas 
+    ya escritas para el hitori en la "fase2.pl"
+
+2-  Una vez cargada la base de conocimientos en el SWI-Prolog. Llamamos de la siguiente forma:
+    pistaHitori(
+        [],
+        [],
+        [],
+        [],
+        []
+    )   :-  run 

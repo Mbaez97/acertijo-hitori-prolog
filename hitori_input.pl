@@ -29,13 +29,10 @@ continueInt(N,N).
 
 is_number_code(N, N1):- N>=48, N<58, N1 is N-48.
 
-% Empieza el algoritmo y lee
-run:- inputFile(IF), see(IF), outputFile(F), tell(F), readInt(N), write(N), nl, solveProblems(N), told, seen, !.
-run:- told, seen. /* close the files */
-% Version dos para correr
-run([X|F]) :- pistaHitori(X), see(X), outputFile(F), tell(F), readInt(N), write(N), nl, solveProblems(N), told, seen,!.
-run([X|F]) :- told, seen.
+% Runner
+run :- pistaHitori(X), see(X), tell(F), readInt(N), write(N), nl, solveProblems(N), told, seen,!.
+run :- told, seen.
 
 solveProblems(0).
-solveProblems(N):- N>0, readProblem(X, Y, I), solveMatrix(X, Y, I, S), writeFullOutput(S, X, Y), !, N1 is N-1, solveProblems(N1).
+solveProblems(N):- N>0, readProblem(X, Y, I), solveMatriz(X, Y, I, S), writeFullOutput(S, X, Y), !, N1 is N-1, solveProblems(N1).
 solveProblems(_):- write('no solutions').
