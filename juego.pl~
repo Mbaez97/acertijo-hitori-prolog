@@ -7,13 +7,13 @@ rotarMatriz(M, Rotated) :-
 row(B,I,R) :- nth0(I, B, R).
 
 % Obtiene la columna del tablero B dado por un indice I
-col(B,I,C) :-
-        transpose(B, T),
+col(B,I,C) :- 
+        transpose(B, T), 
         row(T,I,C).
 
 % Realiza el algoritmo de reacciones en cadena hasta que no haya cambios
 doChainReactions(M,S) :- doChainReactions(M,S,99999,0).         % Empieza con un valor alto hasta el ultimo simbolo
-doChainReactions(M, S, CAntes, CDespues) :-
+doChainReactions(M, S, CAntes, CDespues) :- 
     CDespues<CAntes,
     countNoResueltoEnLaMatriz(S,C1),
     chainReactions(M,S),!,
@@ -21,39 +21,36 @@ doChainReactions(M, S, CAntes, CDespues) :-
     prep(M,S,M2),
     doChainReactions(M2,S,C1,C2),!.
 
-% Si no coloco M, S el interprete hace como una sobrecarga de la funcion
 doChainReactions(M,S,CAntes,CDespues) :- CDespues>=CAntes.
 
 /*
  * EL algoritmo de reaccion en cadena pinta las distintas celdas en base a las reglas ya escritas para el hitori
- *
+ * 
  */
 chainReactions(M,S) :-
-    rotarMatriz(M, M1), rotarMatriz(S,S1),
+    rotarMatriz(M, M1), rotarMatriz(S,S1), 
     patronDeCicloEstandarNegro(M1,S1),!,
-    rotarMatriz(M1, M2), rotarMatriz(S1,S2),
-    patronDeCicloEstandarNegro(M2,S2),!,
-    rotarMatriz(M2, M3), rotarMatriz(S2,S3),
-    patronDeCicloEstandarNegro(M3,S3),!,
+    rotarMatriz(M1, M2), rotarMatriz(S1,S2), 
+    patronDeCicloEstandarNegro(M2,S2),!, 
+    rotarMatriz(M2, M3), rotarMatriz(S2,S3), 
+    patronDeCicloEstandarNegro(M3,S3),!, 
     rotarMatriz(M3, M4), rotarMatriz(S3,S4),
     patronDeCicloEstandarNegro(M4,S4),
     patronDeCicloEstandarBlanco(M4,S4),!,
     patronUnico(M4,S4).
-
+    
 % Establece todos los duplicados en una fila y columna de celdas blancas en negro
 patronDeCicloEstandarBlanco(BM,SM) :- patronDeCicloEstandarBlanco(BM,SM,BM,SM,0).
 patronDeCicloEstandarBlanco(_,_,[],[],_).
 patronDeCicloEstandarBlanco(BM,SM,[E1|T],[A1|B],Y) :- checkCicloEstandarBlanco(BM,SM,E1,A1,0,Y), Y2 is Y+1, patronDeCicloEstandarBlanco(BM,SM,T,B,Y2).
 
-% La variable A que es cabeza de la lista es necesaria para que el
-% interprete no realice una especie de sobrecarga de funciones.
 checkCicloEstandarBlanco(_,_,[],[],_,_).
 checkCicloEstandarBlanco(BM,SM,[_|T],[A|B],X,Y) :- isUnknown(A), !, X2 is X+1, checkCicloEstandarBlanco(BM,SM,T,B,X2,Y).
 checkCicloEstandarBlanco(BM,SM,[H|T],[A|B],X,Y) :- isSolved(H),!, X2 is X+1, checkCicloEstandarBlanco(BM,SM,T,B,X2,Y).
 checkCicloEstandarBlanco(BM,SM,[_|T],[A|B],X,Y) :- A=0,!, X2 is X+1, checkCicloEstandarBlanco(BM,SM,T,B,X2,Y).
-checkCicloEstandarBlanco(BM,SM,[H|T],[A|B],X,Y) :- A=H,
+checkCicloEstandarBlanco(BM,SM,[H|T],[A|B],X,Y) :- A=H, 
     row(BM,Y,BMRow), row(SM,Y,SMRow), buscaCicloEstandarBlanco(BMRow,SMRow,[A,X]),
-    col(BM,X,BMCol), col(SM,X,SMCol), buscaCicloEstandarBlanco(BMCol,SMCol,[A,Y]),
+    col(BM,X,BMCol), col(SM,X,SMCol), buscaCicloEstandarBlanco(BMCol,SMCol,[A,Y]), 
     X2 is X+1, checkCicloEstandarBlanco(BM,SM,T,B,X2,Y).
 
 buscaCicloEstandarBlanco(BL,SL,I) :- buscaCicloEstandarBlanco(BL,SL,I,0).

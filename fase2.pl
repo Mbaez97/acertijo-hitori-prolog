@@ -1,8 +1,8 @@
 /*
 En esta fase dos usamos el algoritmo de fuerza bruta para resolver todas las posibles matrices
 */
-fase2(BM,SM, Size) :-
-        fillMatriz(BM,SM,Size),
+fase2(BM,SM, 5) :-
+        fillMatriz(BM,SM,5),
         regla1(SM),
         regla2(SM),
         trampose(SM,TSM),
@@ -152,35 +152,35 @@ fillMatriz(BM, SM, 5) :-
         flatten(SM, FSM),
         fillAlgoritmo(FBM,FSM,5).
 
-fillAlgoritmo(A,B,Size) :- fillAlgoritmo(A,B,[],[],Size).
+fillAlgoritmo(A,B,5) :- fillAlgoritmo(A,B,[],[],5).
 fillAlgoritmo([],[],_,_,_).
-fillAlgoritmo([H1|T1], [H2|T2], A, B, Size) :-
-        fill(A,B,[H1|T1], [H2|T2], Size),
+fillAlgoritmo([H1|T1], [H2|T2], A, B, 5) :-
+        fill(A,B,[H1|T1], [H2|T2], 5),
         append(A,[H1],A2),
         append(B,[H2],B2),
-        fillAlgoritmo(T1,T2,A2,B2,Size).
+        fillAlgoritmo(T1,T2,A2,B2,5).
 
 % Si la celda ya se recorrio y se determino su color, pasa.
 fill(_,_,[0|_],[_|_],_) :- !.
-fill(H1,H2,[E1|T1],[E2|T2],Size) :-
+fill(H1,H2,[E1|T1],[E2|T2],5) :-
         E2=E1,                                              % Coloca el valor original en la celda
         append(H1,[E1|T1],A1), append(H2,[E2|T2],A2),       % Combina la cabeza y la cola de la lista
-        lista2matriz(A1,Size,R1), lista2matriz(A2,Size,R2),% Transforma la lista en matriz otra vez
+        lista2matriz(A1,5,R1), lista2matriz(A2,5,R2),% Transforma la lista en matriz otra vez
         doChainReactions(R1,R2).                            % Reaccion en cadena
-fill(H1,H2,[E1|T1],[E2|T2],Size) :-
+fill(H1,H2,[E1|T1],[E2|T2],5) :-
         E2=0,                                               % Coloca el valor original en la celda
         append(H1,[E1|T1],A1), append(H2,[E2|T2],A2),       % Combina la cabeza y la cola de la lista
-        lista2matriz(A1,Size,R1), lista2matriz(A2,Size,R2),% Transforma la lista en matriz otra vez
+        lista2matriz(A1,5,R1), lista2matriz(A2,5,R2),% Transforma la lista en matriz otra vez
         doChainReactions(R1,R2).                            % Reaccion en cadena
 
 % Tamaño de la lista
 length_(Length, List) :- length(List, Length).
 
 % Convierte una lista dada en su forma original de matriz, en base al tamaño de las filas
-lista2matriz(List, RowSize, Matriz) :-
+lista2matriz(List, Row5, Matriz) :-
         length(List,L),
-        CuantasFilas is L div RowSize,
+        CuantasFilas is L div Row5,
         length(Matriz ,CuantasFilas),
-        maplist(length_(RowSize), Matriz),
+        maplist(length_(Row5), Matriz),
         append(Matriz, List).
 

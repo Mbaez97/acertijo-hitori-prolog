@@ -50,8 +50,6 @@ countNoResuelto([X|T], Y) :-
         isUnknown(X),!,
         countNoResuelto(T,Z),
         Y is 1+Z.
-% La variable X evita que el interprete haga una especie de sobrecarga
-% de funciones
 countNoResuelto([X|T], Y) :-
         countNoResuelto(T,Y).
 
